@@ -77,12 +77,22 @@ function renderCategoryProducts() {
     filteredProducts.forEach(item => {
         const card = document.createElement("div");
         card.className = "product-card";
+        
+        // Clean template string without inline onerror syntax conflicts
         card.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" onerror="this.src='${getFallbackSvg()}'">
+            <img class="product-img" src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
             <p class="product-price">${item.price}</p>
             <button class="buy-btn">Add to Bag</button>
         `;
+
+        // Handle image error via event listener
+        const imgElement = card.querySelector(".product-img");
+        if (imgElement) {
+            imgElement.addEventListener("error", function() {
+                this.src = getFallbackSvg();
+            }, { once: true });
+        }
 
         card.querySelector(".buy-btn").addEventListener("click", () => {
             addToCart(item.name, item.price, item.image);
@@ -128,7 +138,7 @@ function renderCartPage() {
         
         itemRow.innerHTML = `
             <div class="cart-item-info">
-                <img src="${item.image}" alt="${item.name}" onerror="this.src='${getFallbackSvg()}'">
+                <img class="cart-item-img" src="${item.image}" alt="${item.name}">
                 <div>
                     <span class="cart-item-name">${item.name}</span>
                     <div class="cart-item-price">${item.price || ''}</div>
@@ -138,6 +148,14 @@ function renderCartPage() {
                 <button class="icon-btn delete-btn" title="Remove Item">${darkTrashIcon}</button>
             </div>
         `;
+
+        // Handle image error via event listener in cart view
+        const cartImgElement = itemRow.querySelector(".cart-item-img");
+        if (cartImgElement) {
+            cartImgElement.addEventListener("error", function() {
+                this.src = getFallbackSvg();
+            }, { once: true });
+        }
 
         itemRow.querySelector(".delete-btn").addEventListener("click", () => removeFromCart(item.id));
 
