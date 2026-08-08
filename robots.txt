@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://your-firebase-app.web.app/sitemap.xml
