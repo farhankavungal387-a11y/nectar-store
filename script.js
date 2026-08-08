@@ -78,7 +78,6 @@ function renderCategoryProducts() {
         const card = document.createElement("div");
         card.className = "product-card";
         
-        // Clean template string without inline onerror syntax conflicts
         card.innerHTML = `
             <img class="product-img" src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
@@ -175,6 +174,11 @@ function renderCartPage() {
         footer.innerHTML = `<button id="buy-all-btn" class="buy-all-btn">Proceed to Secure Checkout ($${totalPrice.toLocaleString()})</button>`;
         document.getElementById("buy-all-btn").addEventListener("click", () => {
             alert(`Thank you for choosing Nectar.\nTotal Order: $${totalPrice.toLocaleString()}\nThis is a demonstration store; online orders will open soon.`);
+            
+            // Empty local storage cart and re-render cart elements
+            saveCart([]);
+            updateCartCount();
+            renderCartPage();
         });
     }
 }
