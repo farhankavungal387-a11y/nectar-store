@@ -175,8 +175,8 @@ function renderCartPage() {
         document.getElementById("buy-all-btn").addEventListener("click", () => {
             alert(`Thank you for choosing Nectar.\nTotal Order: $${totalPrice.toLocaleString()}\nThis is a demonstration store; online orders will open soon.`);
             
-            // Clear cart from local storage and update view
-            saveCart([]);
+            // Explicitly remove key from local storage and refresh UI
+            localStorage.removeItem("azjewell_cart");
             updateCartCount();
             renderCartPage();
         });
