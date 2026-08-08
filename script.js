@@ -175,7 +175,7 @@ function renderCartPage() {
         document.getElementById("buy-all-btn").addEventListener("click", () => {
             alert(`Thank you for choosing Nectar.\nTotal Order: $${totalPrice.toLocaleString()}\nThis is a demonstration store; online orders will open soon.`);
             
-            // Empty local storage cart and re-render cart elements
+            // Clear cart from local storage and update view
             saveCart([]);
             updateCartCount();
             renderCartPage();
